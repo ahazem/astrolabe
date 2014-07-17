@@ -152,3 +152,18 @@ func TestOptionsRoute(t *testing.T) {
 		t.Error("The route path should be displayed.")
 	}
 }
+
+// Test HEAD routes are displayed.
+func TestHeadRoute(t *testing.T) {
+	res := setupWithRoute("HEAD", func(w http.ResponseWriter, r *http.Request) string {
+		return "a HEAD route"
+	})
+
+	if !strings.Contains(res.Body.String(), "HEAD") {
+		t.Error("The HEAD route should be displayed.")
+	}
+
+	if !strings.Contains(res.Body.String(), "/posts") {
+		t.Error("The route path should be displayed.")
+	}
+}
