@@ -22,19 +22,6 @@ func setup() *httptest.ResponseRecorder {
 	return res
 }
 
-// Test that /martini/routes endpoint is accessible and the content-type is set to text/html.
-func TestExposeEndpoint(t *testing.T) {
-	res := setup()
-
-	if res.Code != 200 {
-		t.Error("Response is not 200.")
-	}
-
-	if res.HeaderMap.Get("Content-Type") != "text/html" {
-		t.Error("Expecting the Content-Type to be text/html.")
-	}
-}
-
 // This function is used as a setup but with a route defined.
 func setupWithRoute(method string, handler martini.Handler) *httptest.ResponseRecorder {
 	m := martini.Classic()
@@ -64,6 +51,19 @@ func setupWithRoute(method string, handler martini.Handler) *httptest.ResponseRe
 	m.ServeHTTP(res, req)
 
 	return res
+}
+
+// Test that /martini/routes endpoint is accessible and the content-type is set to text/html.
+func TestExposeEndpoint(t *testing.T) {
+	res := setup()
+
+	if res.Code != 200 {
+		t.Error("Response is not 200.")
+	}
+
+	if res.HeaderMap.Get("Content-Type") != "text/html" {
+		t.Error("Expecting the Content-Type to be text/html.")
+	}
 }
 
 // This checks the endpoint is not exposed when the MARTINI.ENV is anything other than development.
