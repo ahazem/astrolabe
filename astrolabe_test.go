@@ -3,6 +3,7 @@ package astrolabe
 import (
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
 	"github.com/go-martini/martini"
@@ -74,5 +75,20 @@ func TestNotExposedIfNotInDevelopment(t *testing.T) {
 		if res.Code != http.StatusNotFound {
 			t.Error("/martini/routes endpoint should not be exposed when environment is not development.")
 		}
+	}
+}
+
+// Test GET routes are displayed.
+func TestGetRoute(t *testing.T) {
+	res := setupWithRoute("GET", func(w http.ResponseWriter, r *http.Request) string {
+		return "a GET route"
+	})
+
+	if !strings.Contains(res.Body.String(), "GET") {
+		t.Error("The GET route should be displayed.")
+	}
+
+	if !strings.Contains(res.Body.String(), "/posts") {
+		t.Error("The route path should be displayed.")
 	}
 }
