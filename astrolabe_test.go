@@ -107,3 +107,18 @@ func TestPostRoute(t *testing.T) {
 		t.Error("The route path should be displayed.")
 	}
 }
+
+// Test PUT routes are displayed.
+func TestPutRoute(t *testing.T) {
+	res := setupWithRoute("PUT", func(w http.ResponseWriter, r *http.Request) string {
+		return "a PUT route"
+	})
+
+	if !strings.Contains(res.Body.String(), "PUT") {
+		t.Error("The PUT route should be displayed.")
+	}
+
+	if !strings.Contains(res.Body.String(), "/posts/:id") {
+		t.Error("The route path should be displayed.")
+	}
+}
