@@ -92,3 +92,18 @@ func TestGetRoute(t *testing.T) {
 		t.Error("The route path should be displayed.")
 	}
 }
+
+// Test POST routes are displayed.
+func TestPostRoute(t *testing.T) {
+	res := setupWithRoute("POST", func(w http.ResponseWriter, r *http.Request) string {
+		return "a POST route"
+	})
+
+	if !strings.Contains(res.Body.String(), "POST") {
+		t.Error("The POST route should be displayed.")
+	}
+
+	if !strings.Contains(res.Body.String(), "/posts") {
+		t.Error("The route path should be displayed.")
+	}
+}
