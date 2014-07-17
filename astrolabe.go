@@ -87,11 +87,14 @@ const routesHTML string = `<html>
 </html>`
 
 func exposeEndpoint(w http.ResponseWriter, r *http.Request, c martini.Context, routes martini.Routes) {
-	arr := make([]route, len(routes.All()))
+	arr := make([]route, len(routes.All())-1)
 
 	for i, e := range routes.All() {
-		arr[i].Method = e.Method()
-		arr[i].Pattern = e.Pattern()
+		// Remove /martini/routes endpoint from the array passed to the template.
+		if i != (len(routes.All()) - 1) {
+			arr[i].Method = e.Method()
+			arr[i].Pattern = e.Pattern()
+		}
 	}
 
 	w.Header().Set("Content-Type", "text/html")
