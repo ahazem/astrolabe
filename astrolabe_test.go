@@ -34,6 +34,37 @@ func TestExposeEndpoint(t *testing.T) {
 	}
 }
 
+// This function is used as a setup but with a route defined.
+func setupWithRoute(method string, handler martini.Handler) *httptest.ResponseRecorder {
+	m := martini.Classic()
+
+	switch method {
+	case "GET":
+		m.Get("/posts", handler)
+	case "POST":
+		m.Post("/posts", handler)
+	case "PUT":
+		m.Put("/posts/:id", handler)
+	case "PATCH":
+		m.Patch("/posts/:id", handler)
+	case "OPTIONS":
+		m.Options("/posts", handler)
+	case "HEAD":
+		m.Head("/posts", handler)
+	case "DELETE":
+		m.Delete("/posts/:id", handler)
+	}
+
+	m.Use(ExposeEndpoint(m.Router))
+
+	res := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", "/martini/routes", nil)
+
+	m.ServeHTTP(res, req)
+
+	return res
+}
+
 // This checks the endpoint is not exposed when the MARTINI.ENV is anything other than development.
 func TestNotExposedIfNotInDevelopment(t *testing.T) {
 	res := setup()
