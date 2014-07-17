@@ -167,3 +167,18 @@ func TestHeadRoute(t *testing.T) {
 		t.Error("The route path should be displayed.")
 	}
 }
+
+// Test DELETE routes are displayed.
+func TestDeleteRoute(t *testing.T) {
+	res := setupWithRoute("DELETE", func(w http.ResponseWriter, r *http.Request) string {
+		return "a DELETE route"
+	})
+
+	if !strings.Contains(res.Body.String(), "DELETE") {
+		t.Error("The DELETE route should be displayed.")
+	}
+
+	if !strings.Contains(res.Body.String(), "/posts") {
+		t.Error("The route path should be displayed.")
+	}
+}
