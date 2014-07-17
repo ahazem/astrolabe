@@ -33,3 +33,15 @@ func TestExposeEndpoint(t *testing.T) {
 		t.Error("Expecting the Content-Type to be text/html.")
 	}
 }
+
+// This checks the endpoint is not exposed when the MARTINI.ENV is anything other than development.
+func TestNotExposedIfNotInDevelopment(t *testing.T) {
+	res := setup()
+
+	// Check that we are not in development.
+	if martini.Env != martini.Dev {
+		if res.Code != http.StatusNotFound {
+			t.Error("/martini/routes endpoint should not be exposed when environment is not development.")
+		}
+	}
+}
