@@ -17,25 +17,25 @@ const routesHTML string = `<html>
   <head>
     <title>Routes</title>
     <style type="text/css">
-      html, body {
+			html, body {
 				font-size: 14px;
-        font-family: sans-serif;
-        color: #333333;
-        background-color: #ea5343;
-        margin: 0px;
-      }
-      h1 {
-        color: #d04526;
-        background-color: #ffffff;
-        padding: 20px;
-        border-bottom: 1px dashed #2b3848;
-      }
-      div {
-        margin: 20px;
-        padding: 20px;
-        border: 2px solid #2b3848;
-        background-color: #ffffff;
-      }
+				font-family: sans-serif;
+				color: #333333;
+				background-color: #ea5343;
+				margin: 0px;
+			}
+			h1 {
+				color: #d04526;
+				background-color: #ffffff;
+				padding: 20px;
+				border-bottom: 1px dashed #2b3848;
+			}
+			div {
+				margin: 20px;
+				padding: 20px;
+				border: 2px solid #2b3848;
+				background-color: #ffffff;
+			}
 			table {
 				font-size: 14px;
 				width: 50%;
