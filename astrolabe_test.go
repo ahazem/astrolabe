@@ -137,3 +137,18 @@ func TestPatchRoute(t *testing.T) {
 		t.Error("The route path should be displayed.")
 	}
 }
+
+// Test OPTIONS routes are displayed.
+func TestOptionsRoute(t *testing.T) {
+	res := setupWithRoute("OPTIONS", func(w http.ResponseWriter, r *http.Request) string {
+		return "an OPTIONS route"
+	})
+
+	if !strings.Contains(res.Body.String(), "OPTIONS") {
+		t.Error("The OPTIONS route should be displayed.")
+	}
+
+	if !strings.Contains(res.Body.String(), "/posts") {
+		t.Error("The route path should be displayed.")
+	}
+}
