@@ -78,6 +78,15 @@ func TestNotExposedIfNotInDevelopment(t *testing.T) {
 	}
 }
 
+// This will test that /martini/routes endpoint is not displayed in the page.
+func TestEndpointNotInRoutes(t *testing.T) {
+	res := setup()
+
+	if strings.Contains(res.Body.String(), "/martini/routes") {
+		t.Error("/martini/routes endpoint should not be displayed among other routes.")
+	}
+}
+
 // Test GET routes are displayed.
 func TestGetRoute(t *testing.T) {
 	res := setupWithRoute("GET", func(w http.ResponseWriter, r *http.Request) string {
