@@ -122,3 +122,18 @@ func TestPutRoute(t *testing.T) {
 		t.Error("The route path should be displayed.")
 	}
 }
+
+// Test PATCH routes are displayed.
+func TestPatchRoute(t *testing.T) {
+	res := setupWithRoute("PATCH", func(w http.ResponseWriter, r *http.Request) string {
+		return "a PATCH route"
+	})
+
+	if !strings.Contains(res.Body.String(), "PATCH") {
+		t.Error("The PATCH route should be displayed.")
+	}
+
+	if !strings.Contains(res.Body.String(), "/posts/:id") {
+		t.Error("The route path should be displayed.")
+	}
+}
